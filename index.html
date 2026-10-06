@@ -64,14 +64,14 @@ const SITE = {
       level: "Undergraduate",
       title: "B.Sc. in Electrical & Electronic Engineering",
       place: "Jashore University of Science & Technology, Jashore-7408, Bangladesh",
-      result: "CGPA: 3.69 / 4.0 · 4th in class",
+      result: "CGPA: 3.69 / 4.0",
       note: "Expected graduation: 2027"
     },
     {
       period: "2018 – 2021",
       level: "Higher Secondary",
       title: "Higher Secondary Certificate (Science)",
-      place: "Shachindra College, Baniachong, Habiganj",
+      place: "Shachindra College, Baniachong, Habiganj, Bangladesh",
       result: "GPA: 4.75 / 5.0",
       note: ""
     }
@@ -87,9 +87,43 @@ const SITE = {
 
   // ট্রেনিং
   training: [
-    { period: "Nov 2025 – May 2026", title: "Solar System Planning, Design, Installation & Operation", place: "Hands-on training with PVsyst", text: "Load analysis, PV array sizing, inverter selection and performance evaluation of solar PV systems." },
-    { period: "Sep 2025 – Jun 2026", title: "AI for Immersive Technology", place: "Bangladesh Hi-Tech Park Authority", text: "Practical applications of AI, machine learning and data-driven solutions." },
-    { period: "May 2025",           title: "PCB Design Training", place: "", text: "Schematic design, PCB layout, component placement, routing and fabrication preparation." }
+    {
+      period: "10-Day Program",
+      title: "Industrial Training at Ghorashal Training Center",
+      place: "Bangladesh Power Development Board (BPDB), Palash, Narsingdi",
+      text: "Practical, on-site training on how a power plant really works, from generating electricity to delivering and protecting it.",
+      topics: ["Power Generation", "Transmission", "Protection Systems", "Transformers", "DCS / PLC", "SCADA", "Power Plant Operations"],
+      link: "https://drive.google.com/file/d/1AShcjI8px5hQnQmWEyZxWgTXTv2f77FS/view?usp=sharing", linkLabel: "View certificate"
+    },
+    {
+      period: "9-Day Program",
+      title: "Industrial Training at Ulkasemi",
+      place: "Ulkasemi Pvt. Limited",
+      placeLink: "https://www.linkedin.com/company/ulkasemi/",
+      text: "Industry-focused training across the semiconductor design flow, together with career and communication skills.",
+      topics: ["Design Verification", "Analog Design", "IC Physical Design", "Foundry Technologies", "IC Mask Design", "CV Writing & Interview Skills", "Presentation & Public Speaking"],
+      link: "https://drive.google.com/file/d/1W1Bqzsnpg4LpGDVDPyNwD6l6ySyrPgAB/view?usp=sharing", linkLabel: "View certificate"
+    },
+    {
+      period: "Nov 2025 – May 2026",
+      title: "Solar System Planning, Design, Installation & Operation",
+      place: "Hands-on training with PVsyst",
+      text: "Load analysis, PV array sizing, inverter selection and performance evaluation of solar PV systems.",
+      link: "https://drive.google.com/file/d/1aIea0F99WCue59TJPeW_ZMek6vspGo8b/view?usp=sharing", linkLabel: "View certificate"
+    },
+    {
+      period: "Sep 2025 – Jun 2026",
+      title: "AI for Immersive Technology",
+      place: "Bangladesh Hi-Tech Park Authority",
+      text: "Practical applications of AI, machine learning and data-driven solutions."
+    },
+    {
+      period: "May 2025",
+      title: "PCB Design Training",
+      place: "",
+      text: "Schematic design, PCB layout, component placement, routing and fabrication preparation.",
+      link: "https://drive.google.com/file/d/1AFH_5dbAjBIfb1qzPTI-tFHVbzJPqExw/view?usp=sharing", linkLabel: "View certificate"
+    }
   ],
 
   /* ---------- RESEARCH ---------- */
@@ -181,7 +215,7 @@ const SITE = {
       category: "Power Electronics",
       icon: "wave2",
       tags: ["Arduino", "Power Electronics", "Rectifier"],
-      links: [],
+      links: [{ label: "View circuit", url: "https://drive.google.com/file/d/1-oqXGarqW3VNW2-dtwp8gxU1pbycftB5/view?usp=sharing" }],
       abstract: "",
       image: ""
     },
@@ -385,6 +419,14 @@ h3{font-family:var(--head);font-weight:700;font-size:1.15rem;line-height:1.35;le
 .timeline{list-style:none;padding:0}
 .proof{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:5px 14px 5px 10px;border-radius:999px;background:#E3F3EC;color:#0E6B52;font-weight:500;font-size:.88rem;text-decoration:none;transition:background .25s,color .25s,transform .25s}
 .proof svg{width:16px;height:16px}
+.proof.cert{background:#FFF4D6;color:#7A5500}
+.proof.cert:hover{background:#F2B200;color:#1E1E1E}
+.place-link{text-decoration:none;color:inherit;border-bottom:1.5px solid var(--accent);transition:color .2s}
+.place-link:hover{color:var(--accent)}
+.timeline .topics{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-wrap:wrap;gap:6px}
+.timeline .topics li{padding:2px 10px;border:1px solid var(--line);background:#fff;border-radius:999px;font-size:.82rem;color:var(--text);transition:border-color .2s,color .2s}
+.timeline .topics li::before{display:none}
+.timeline .topics li:hover{border-color:var(--accent);color:var(--ink)}
 .proof:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
 .timeline h3 a{text-decoration:none;background:linear-gradient(var(--accent),var(--accent)) 0 100%/0 2px no-repeat;transition:background-size .4s}
 .timeline h3 a:hover{background-size:100% 2px}
@@ -816,12 +858,18 @@ footer a:hover{color:var(--ink)}
   /* ---------- biography ---------- */
   $("bio-text").innerHTML = list(SITE.biography).map(p => `<p>${esc(p)}</p>`).join("");
   const tl = (items, listId, cardId) => {
-    $(listId).innerHTML = list(items).map(x => `<li>
-      <span class="label">${esc(x.period)}</span>
+    const ICO_SHIELD = '<path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>';
+    const ICO_CERT = '<circle cx="12" cy="9" r="5"/><path d="M9 13.2 7.5 21l4.5-2.5 4.5 2.5-1.5-7.8"/><path d="m10 9 1.5 1.5L14 8"/>';
+    $(listId).innerHTML = list(items).map(x => {
+      const cert = /certif/i.test(x.linkLabel || "");
+      return `<li>
+      ${x.period ? `<span class="label">${esc(x.period)}</span>` : ""}
       <h3>${esc(x.title)}</h3>
-      ${x.place ? `<span class="place">${esc(x.place)}</span>` : ""}
+      ${x.place ? `<span class="place">${x.placeLink ? `<a class="place-link" href="${esc(x.placeLink)}" target="_blank" rel="noopener">${esc(x.place)}</a>` : esc(x.place)}</span>` : ""}
       ${x.text ? `<p>${esc(x.text)}</p>` : ""}
-      ${x.link ? `<a class="proof" href="${esc(x.link)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>${esc(x.linkLabel || "View on IEEE JUST Student Branch website")} <span aria-hidden="true">↗</span></a>` : ""}</li>`).join("");
+      ${list(x.topics).length ? `<ul class="topics">${list(x.topics).map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+      ${x.link ? `<a class="proof${cert ? " cert" : ""}" href="${esc(x.link)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${cert ? ICO_CERT : ICO_SHIELD}</svg>${esc(x.linkLabel || "View on IEEE JUST Student Branch website")} <span aria-hidden="true">↗</span></a>` : ""}</li>`;
+    }).join("");
     if (!list(items).length) $(cardId).hidden = true;
   };
   $("edu-list").innerHTML = list(SITE.education).map(e => `<article class="edu card lift">
