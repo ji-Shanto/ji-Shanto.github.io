@@ -38,6 +38,7 @@ const SITE = {
     rightSide: "neurons"     // ডান পাশে: "neurons" অথবা "circuit" (সার্কিট বোর্ড)
   },
   cv: "https://docs.google.com/document/d/1OmVTmCS6GXfhZnMwedaoM8mG3TH6Z_Nt/edit?usp=sharing&rtpof=true&sd=true",   // CV-র লিংক
+  cvLabel: "Curriculum Vitae",         // CV বাটনের লেখা
   resume: "",                          // Resume-এর লিংক (খালি থাকলে বাটন দেখাবে না)
 
   // icon হতে পারে: linkedin, facebook, github, scholar, email, phone, link
@@ -154,19 +155,46 @@ const SITE = {
 
   /* ---------- PROJECTS ---------- */
   // নতুন প্রজেক্ট যোগ করতে একটা { ... }, ব্লক কপি করে পেস্ট করুন
-  // icon হতে পারে: bolt, fuel, flame, gauge, building, wave, wave2, chip
+  // icon হতে পারে: bolt, fuel, flame, gauge, building, wave, wave2, chip, sprout
   // links: বাটনের লেখা (label) আর লিংক (url); না থাকলে links: []
   // abstract: পুরো সারাংশ ("Read abstract" চাপলে খোলে); না থাকলে ""
   // image: ছবি দিলে আইকনের জায়গায় ছবি দেখাবে, যেমন "images/fire.jpg"
+  // top: true দিলে প্রজেক্টটা "All"-এ শুরুতেই দেখাবে (বাকিগুলো "See more" চাপলে আসবে)
   projects: [
     {
       title: "Next-Generation Energy Dispatch Optimization for Bangladesh",
       description: "A smart hybrid inverter that combines solar PV, a battery and the utility grid. It forecasts next-day solar output, warns the grid of any shortfall a day ahead, and always puts solar power first. Built in hardware and MATLAB Simulink.",
       category: "Renewable Energy",
+      top: true,
       icon: "bolt",
       tags: ["Solar PV", "Hybrid Inverter", "Smart Grid", "MATLAB Simulink", "Hardware"],
       links: [],
       abstract: "Renewable Energy Sources (RES) transform free natural inputs of wind or sun into electricity without consuming fuel, but they are not steady. Sunlight, temperature and fuel/air conditions fluctuate constantly which causes the power of renewable sources to increase or decrease. This variability makes it difficult to maintain a smooth supply of load and also to protect the battery against undue strain. This project introduces a simple and efficient smart hybrid inverter system incorporating a PV module, battery and utility grid. A supervisory controller with forecasted PV output observes the DC-bus state which is an upper bound of renewable robustness and also monitors the battery charge level. On that basis, if the PV output power is less than the load power demand, the deficiency report will be sent to the grid a day before. As a result, the grid will be prepared for the power supply for next day and thus power generation shortage or over power generation which causes frequency unstable of power system can be reduced to minimal level. On the other hand, if the PV output is greater than our load demand, inverter will automatically prioritize renewable power for the load, store surplus energy in the battery and convert it into stored energy to cover brief shortages. It will reduce grid dependency by relying on the grid only during extended low-renewable periods. The setup maintains continuous power supply with variation, keeps the DC bus voltage constant, allows less energy to be drawn from grid power. We have implemented this in both hardware and MATLAB Simulink.",
+      image: ""
+    },
+    {
+      title: "Multi-Crop Smart Irrigation System Using ESP32",
+      description: "An ESP32-based system that decides when each crop needs water. An Extra Trees machine learning model, trained on crop irrigation data, reads the sensor values and starts watering only when it is really needed, saving water.",
+      category: "IoT & Embedded",
+      icon: "sprout",
+      top: true,
+      tags: ["ESP32", "Machine Learning", "Extra Trees Classifier", "IoT", "Smart Agriculture"],
+      links: [
+        { label: "See the physical system", url: "https://drive.google.com/file/d/1lj6QbS33WB7t0e5_BUBtyZMy0zpanbB4/view?usp=sharing" },
+        { label: "View dataset", url: "https://www.kaggle.com/datasets/pusainstitute/cropirrigationscheduling" }
+      ],
+      abstract: "",
+      image: ""
+    },
+    {
+      title: "PID Temperature Control with Allen-Bradley Micro850 PLC",
+      description: "A closed-loop temperature controller programmed as a Function Block Diagram in Connected Components Workbench (CCW). The PID loop holds the temperature steady at its set point.",
+      category: "Automation & Control",
+      top: true,
+      icon: "gauge",
+      tags: ["PLC", "PID Control", "Micro850", "CCW"],
+      links: [{ label: "View FBD program", url: "https://drive.google.com/file/d/18rht71lx4fq3TxR_oHbLcy14WH377Keu/view?usp=sharing" }],
+      abstract: "",
       image: ""
     },
     {
@@ -186,16 +214,6 @@ const SITE = {
       icon: "flame",
       tags: ["IoT", "Sensors", "Microcontroller"],
       links: [{ label: "Watch demo video", url: "https://drive.google.com/file/d/16LYPyweXA0WaSGBBA3XmsNlWpUFvyKyf/view?usp=sharing" }],
-      abstract: "",
-      image: ""
-    },
-    {
-      title: "PID Temperature Control with Allen-Bradley Micro850 PLC",
-      description: "A closed-loop temperature controller programmed as a Function Block Diagram in Connected Components Workbench (CCW). The PID loop holds the temperature steady at its set point.",
-      category: "Automation & Control",
-      icon: "gauge",
-      tags: ["PLC", "PID Control", "Micro850", "CCW"],
-      links: [{ label: "View FBD program", url: "https://drive.google.com/file/d/18rht71lx4fq3TxR_oHbLcy14WH377Keu/view?usp=sharing" }],
       abstract: "",
       image: ""
     },
@@ -225,39 +243,133 @@ const SITE = {
       category: "Communication",
       icon: "wave",
       tags: ["Digital Communication", "PCM", "Hardware"],
-      links: [{ label: "View circuit", url: "https://drive.google.com/drive/folders/1RmjoRE1MZVJgsyXihmXLDK0cbZSj9uYA?usp=sharing" }],
+      links: [{ label: "View circuit", url: "https://drive.google.com/file/d/1IT55wH9isqgerPVWWBMDXzdmToE_TSwx/view?usp=sharing" }],
       abstract: "",
       image: ""
     }
   ],
 
   /* ---------- ACTIVITIES ---------- */
-  // type: "Competition" অথবা "Activity"
-  // result: প্রতিযোগিতার ফলাফল, যেমন "1st Place" (Activity হলে খালি "" রাখুন)
-  // image: ইভেন্টের ছবি দিলে উপরে দেখাবে, যেমন "images/robolution.jpg"
-  // link: সার্টিফিকেট/পোস্টের লিংক থাকলে দিন, না থাকলে ""
+  // category: "Competitions", "Research & Presentations", "Speaker & Trainer", "Volunteer & Service"
+  //           (নতুন নাম দিলে নিজে থেকেই নতুন ফিল্টার বাটন তৈরি হবে)
+  // highlight: কভারে বড় করে যা দেখাবে, যেমন "1st", "Top 7", "Speaker"
+  // top: true দিলে শুরুতে দেখাবে, বাকিগুলো "See more" চাপলে আসবে
+  // links: বাটন (লেখা + লিংক); photos: ছবির তালিকা ("View photos" বাটনে খুলবে)
+  // icon (ইচ্ছা হলে): trophy, poster, mic, hand, pen, people
   activities: [
     {
-      type: "Competition",
-      result: "7th Place",
+      top: true,
+      category: "Research & Presentations",
+      highlight: "Poster",
+      title: "ETSD 2026",
+      event: "2nd International Conference on Engineering and Technology for Sustainable Development",
+      place: "",
+      date: "15 May 2026",
+      text: "Presented our research poster at an international conference on engineering and technology for a sustainable future.",
+      links: [{ label: "View certificate", url: "https://drive.google.com/file/d/1XEfRyonkAp0lNAktT9n7KYACWO2EXnMV/view?usp=sharing" }],
+      photos: []
+    },
+    {
+      top: true,
+      category: "Speaker & Trainer",
+      highlight: "Speaker",
+      title: "IoT Innovation Summit 2026",
+      event: "Segment: Basics of Arduino & Project Development",
+      place: "IEEE JUST Student Branch & JUST Robo Society",
+      date: "24 Aug 2026",
+      text: "Led the hands-on session on Arduino fundamentals and how to turn an idea into a working project.",
+      links: [],
+      photos: ["images/iot-summit-1.jpg", "images/iot-summit-2.jpg", "images/iot-summit-3.jpg", "images/iot-summit-4.jpg"]
+    },
+    {
+      top: true,
+      category: "Competitions",
+      highlight: "Top 7",
       title: "Line Following Robot Competition",
       event: "MIE Robolution 1.0",
       place: "Chittagong University of Engineering & Technology (CUET)",
       date: "",
-      text: "Built and raced an autonomous robot that follows a track on its own using sensors and a microcontroller.",
-      image: "",
-      link: ""
+      text: "Built and raced an autonomous robot that follows a track on its own, finishing among the top 7 teams.",
+      links: [],
+      photos: []
     },
     {
-      type: "Competition",
-      result: "1st Place",
-      title: "Science Fair",
-      event: "District Level",
+      category: "Research & Presentations",
+      highlight: "Poster",
+      title: "Symposium on Power and Energy Challenges in Bangladesh",
+      event: "Poster Presentation",
+      place: "Jashore University of Science and Technology",
+      date: "19 Nov 2025",
+      text: "My poster was accepted for the symposium, where I presented it and engaged with fellow researchers and innovators.",
+      links: [],
+      photos: []
+    },
+    {
+      category: "Research & Presentations",
+      highlight: "Exhibitor",
+      title: "Humanitarian Project Exhibition",
+      event: "IEEE RAAICON 2026 co-located event",
+      place: "Organized by IEEE Bangladesh Section",
+      date: "2026",
+      text: "Showcased a project built to address real community needs, alongside the IEEE International Conference on Robotics, Automation, AI and IoT.",
+      links: [{ label: "View certificate", url: "https://drive.google.com/file/d/1QMcHiId7vUANNJ_4CYCaIa44P2aSS5AA/view?usp=sharing" }],
+      photos: []
+    },
+    {
+      category: "Speaker & Trainer",
+      highlight: "Trainer",
+      title: "Mastering Arduino & Line Follower Robot Workshop",
+      event: "Speaker & Trainer",
+      place: "EEE Club, JUST",
+      date: "30 Aug 2025",
+      text: "Trained students from the basics of Arduino to building their own line follower robot.",
+      links: [{ label: "Certificate of appreciation", url: "https://drive.google.com/file/d/1WCPz3kRUoMvHfigDoRKuCOEpKloUh62U/view?usp=sharing" }],
+      photos: []
+    },
+    {
+      category: "Competitions",
+      highlight: "3MT",
+      title: "3 Minute Thesis (3MT)",
+      event: "SciBlitz 1.0",
+      place: "IEEE CUET Student Branch",
+      date: "",
+      text: "Took part in the 3MT segment of SciBlitz 1.0 and shared my research idea with the audience.",
+      links: [{ label: "View certificate", url: "https://drive.google.com/file/d/1R_b3E5Jufgrtj_-bC25bOb_YgTU6bie6/view?usp=sharing" }],
+      photos: []
+    },
+    {
+      category: "Volunteer & Service",
+      highlight: "Volunteer",
+      title: "5th IEEE RAAICON 2026",
+      event: "IEEE International Conference on Robotics, Automation, Artificial-Intelligence and Internet-of-Things",
+      place: "",
+      date: "2026",
+      text: "Volunteered behind the scenes to help the international conference run smoothly.",
+      links: [{ label: "View certificate", url: "https://drive.google.com/file/d/1tlUmgeOGkedZ9aSk6K33RxJ3I3abvOQk/view?usp=sharing" }],
+      photos: []
+    },
+    {
+      category: "Volunteer & Service",
+      highlight: "Writer",
+      icon: "pen",
+      title: "Annual Report Book",
+      event: "EEE Club, JUST",
       place: "",
       date: "",
-      text: "Won first place among participating projects at the district science fair.",
-      image: "",
-      link: ""
+      text: "Wrote the club's annual report book, capturing a year of events, achievements and activities.",
+      links: [{ label: "Read the book", url: "https://drive.google.com/file/d/1EY3I88kSktThKhOBEBtkyn2_key2hePt/view?usp=drivesdk" }],
+      photos: []
+    },
+    {
+      category: "Competitions",
+      highlight: "1st",
+      title: "Science Fair",
+      event: "College Science Fair · Junior Level",
+      place: "",
+      date: "",
+      text: "Won first place in the junior level of my college science fair.",
+      links: [],
+      photos: ["images/science-fair.jpg"]
     }
   ],
 
@@ -266,7 +378,7 @@ const SITE = {
   skills: [
     { group: "Electronics & Hardware", icon: "chip",  items: ["PCB Design", "Microcontroller", "PLC", "IoT", "Robotics"] },
     { group: "Programming & AI",       icon: "code",  items: ["Python", "C Programming", "Machine Learning", "Deep Learning"] },
-    { group: "Engineering Software",   icon: "tools", items: ["MATLAB / Simulink", "AutoCAD", "PVsyst"] },
+    { group: "Engineering Software",   icon: "tools", items: ["MATLAB / Simulink", "AutoCAD", "PVsyst", "DIgSILENT PowerFactory"] },
     { group: "Web & Creative",         icon: "pen",   items: ["WordPress Development", "Graphic Design", "Content Writing", "Book Writing"] }
   ],
 
@@ -406,7 +518,9 @@ h3{font-family:var(--head);font-weight:700;font-size:1.15rem;line-height:1.35;le
 .dl-btn.alt{background:#3E3E3B}
 .dl-btn svg{width:20px;height:20px;transition:transform .3s}
 .dl-btn:hover{transform:translateY(-3px);background:var(--accent);box-shadow:0 14px 26px -14px rgba(31,181,138,.8)}
-.dl-btn:hover svg{transform:translateY(3px)}
+.dl-btn:hover svg{transform:rotate(-6deg)}
+.dl-btn .go{transition:transform .3s}
+.dl-btn:hover .go{transform:translate(3px,-3px)}
 .btn svg{width:18px;height:18px}
 .edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(16px,2.5vw,24px)}
 .edu{padding:26px 30px 28px}
@@ -567,12 +681,18 @@ h3{font-family:var(--head);font-weight:700;font-size:1.15rem;line-height:1.35;le
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 8px 0}
 .tags span{font-size:.82rem;padding:2px 10px;border-radius:6px;background:#E8E6E2;color:var(--text)}
 .links{display:flex;flex-wrap:wrap;gap:18px;margin:16px 8px 0}
+.more-wrap{display:flex;justify-content:center;margin-top:clamp(28px,4vw,44px)}
+.more-btn{display:inline-flex;align-items:center;gap:12px;padding:14px 30px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font:inherit;font-weight:700;font-size:1.02rem;cursor:pointer;transition:background .25s,color .25s,transform .25s}
+.more-btn .ar{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-size:.9rem;transition:transform .4s cubic-bezier(.2,.8,.2,1),background .25s}
+.more-btn:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+.more-btn:hover .ar{background:var(--accent)}
+.more-btn.open .ar{transform:rotate(180deg)}
 .project .tags{margin-bottom:auto}
 .project .tags + .abs-btn, .project .tags + .links{margin-top:18px}
 .links a{font-weight:700;text-decoration:none;border-bottom:2px solid var(--accent)}
 .links a:hover{color:var(--accent)}
 
-.act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:clamp(16px,2.5vw,24px)}
+.act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:clamp(16px,2.5vw,24px)}
 .act{padding:12px;display:flex;flex-direction:column}
 .act-cover{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden}
 .act-cover img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
@@ -581,11 +701,39 @@ h3{font-family:var(--head);font-weight:700;font-size:1.15rem;line-height:1.35;le
 .act-gen{position:absolute;inset:0;padding-top:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:radial-gradient(circle at 70% 20%,rgba(255,255,255,.8),transparent 60%),var(--t-bg);color:var(--t-fg)}
 .act-gen.comp{--t-bg:#DDF2E9;--t-fg:#13865F}
 .act-gen.gold{--t-bg:#FCEFC7;--t-fg:#9A6B00}
-.act-gen.people{--t-bg:#E2EAF7;--t-fg:#2F5BA8}
+.act-gen.research{--t-bg:#E2EAF7;--t-fg:#2F5BA8}
+.act-gen.speaker{--t-bg:#ECE5F6;--t-fg:#6A43A3}
+.act-gen.service{--t-bg:#FBE6EA;--t-fg:#B23A55}
+.act-gen.other{--t-bg:#E9ECF2;--t-fg:#3B5670}
 .act-gen svg{width:30%;max-width:64px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .act:hover .act-gen svg{transform:translateY(-4px) rotate(-8deg)}
-.act-gen .rank{font-family:var(--head);font-weight:800;font-size:clamp(2.2rem,4vw,2.8rem);letter-spacing:-.04em;line-height:1}
+.act-gen .rank{font-family:var(--head);font-weight:800;font-size:clamp(1.8rem,3.2vw,2.4rem);letter-spacing:-.04em;line-height:1}
 .act-body{padding:16px 8px 10px;display:flex;flex-direction:column;flex:1}
+.act-cover .pcount{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:5px;background:rgba(30,30,30,.82);color:#fff;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px}
+.act-cover .pcount svg{width:13px;height:13px}
+.act-date{display:block;margin-bottom:6px;font-size:.74rem}
+.act-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:16px}
+.act-btn{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:999px;background:#FFF4D6;color:#7A5500;border:0;font:inherit;font-weight:500;font-size:.86rem;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,transform .25s}
+.act-btn svg{width:15px;height:15px;flex:none}
+.act-btn:hover{background:#F2B200;color:#1E1E1E;transform:translateY(-2px)}
+.act-btn.photo{background:var(--ink);color:#fff}
+.act-btn.photo:hover{background:var(--accent);color:#fff}
+.lightbox{margin:auto;padding:0;border:0;background:transparent;width:100vw;height:100vh;max-width:100vw;max-height:100vh;display:none;align-items:center;justify-content:center;overflow:hidden}
+.lightbox[open]{display:flex}
+.lightbox::backdrop{background:rgba(15,15,15,.88);backdrop-filter:blur(6px)}
+.lb-fig{margin:0;max-width:min(1100px,92vw);display:flex;flex-direction:column;align-items:center}
+.lb-fig img{max-width:100%;max-height:78vh;border-radius:14px;object-fit:contain;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);opacity:0;transform:scale(.97);transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
+.lb-fig img.in{opacity:1;transform:none}
+.lb-fig figcaption{display:flex;gap:14px;align-items:center;margin-top:14px;color:#fff;font-weight:500}
+#lb-count{color:rgba(255,255,255,.65);font-size:.9rem}
+.lb-close,.lb-nav{position:absolute;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:grid;place-items:center;transition:background .25s,transform .25s}
+.lb-close{top:calc(18px + env(safe-area-inset-top,0px));right:18px;width:46px;height:46px;font-size:1.7rem;line-height:1}
+.lb-nav{top:50%;width:52px;height:52px;margin-top:-26px;font-size:2rem;line-height:1}
+.lb-nav.prev{left:clamp(8px,2vw,28px)}
+.lb-nav.next{right:clamp(8px,2vw,28px)}
+.lb-close:hover,.lb-nav:hover{background:var(--accent)}
+.lb-nav:hover{transform:scale(1.08)}
+@media (max-width:600px){.lb-nav{top:auto;bottom:calc(24px + env(safe-area-inset-bottom,0px));margin-top:0}.lb-fig img{max-height:70vh}}
 .act-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .act-top:empty{display:none}
 .result{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:#fff;font-weight:700;font-size:.82rem;padding:3px 12px;border-radius:999px}
@@ -706,6 +854,7 @@ footer a:hover{color:var(--ink)}
         <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
       </div>
       <div class="grid" id="grid"></div>
+      <div class="more-wrap" id="more-wrap"><button type="button" class="more-btn" id="more-btn" aria-expanded="false"><span class="txt"></span><span class="ar" aria-hidden="true">↓</span></button></div>
     </div>
   </section>
 
@@ -716,6 +865,7 @@ footer a:hover{color:var(--ink)}
         <div class="filters" id="act-filters" role="group" aria-label="Filter activities"></div>
       </div>
       <div class="act-grid reveal" id="act-list"></div>
+      <div class="more-wrap" id="act-more-wrap"><button type="button" class="more-btn" id="act-more" aria-expanded="false"><span class="txt"></span><span class="ar" aria-hidden="true">↓</span></button></div>
     </div>
   </section>
 
@@ -749,6 +899,13 @@ footer a:hover{color:var(--ink)}
     </div>
   </section>
 </main>
+
+<dialog class="lightbox" id="lightbox" aria-label="Photo gallery">
+  <button type="button" class="lb-close" id="lb-close" aria-label="Close">×</button>
+  <button type="button" class="lb-nav prev" id="lb-prev" aria-label="Previous photo">‹</button>
+  <figure class="lb-fig"><img id="lb-img" alt=""><figcaption><span id="lb-title"></span><span id="lb-count"></span></figcaption></figure>
+  <button type="button" class="lb-nav next" id="lb-next" aria-label="Next photo">›</button>
+</dialog>
 
 <dialog class="abs-dialog" id="abs-dialog" aria-labelledby="abs-title">
   <div class="abs-inner">
@@ -883,8 +1040,10 @@ footer a:hover{color:var(--ink)}
 
   const dl = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-5-5m5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const cvBtns = [];
-  if (SITE.cv) cvBtns.push(`<a class="dl-btn" href="${esc(SITE.cv)}"${ext(SITE.cv)}>${dl}Download CV</a>`);
-  if (SITE.resume) cvBtns.push(`<a class="dl-btn alt" href="${esc(SITE.resume)}"${ext(SITE.resume)}>${dl}Download Resume</a>`);
+  const doc = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z M14 3v5h5 M9 13h6 M9 17h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const cvText = SITE.cvLabel || "Curriculum Vitae";
+  if (SITE.cv) cvBtns.push(`<a class="dl-btn" href="${esc(SITE.cv)}"${ext(SITE.cv)}>${esc(cvText)}</a>`);
+  if (SITE.resume) cvBtns.push(`<a class="dl-btn alt" href="${esc(SITE.resume)}"${ext(SITE.resume)}>Resume</a>`);
   $("cv-bar").innerHTML = cvBtns.join("");
   if (!cvBtns.length) $("cv-bar").hidden = true;
   tl(SITE.experience, "exp-list", "exp-card");
@@ -997,7 +1156,8 @@ footer a:hover{color:var(--ink)}
     building:'<path d="M3 21h18M5 21V5l7-3 7 3v16"/><path d="M9 9h2M13 9h2M9 13h2M13 13h2M10 21v-4h4v4"/>',
     wave:'<path d="M2 12h2l2-6 3 12 3-12 3 12 3-12 2 6h2"/>',
     wave2:'<path d="M2 12c2-6 4-6 6 0s4 6 6 0 4-6 6 0"/><path d="M2 20h20M2 4h20"/>',
-    chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>'
+    chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+    sprout:'<path d="M12 21v-9"/><path d="M12 12C12 7.5 9 5 4 5c0 4.5 3 7 8 7z"/><path d="M12 14c0-4 2.6-6.5 7-6.5 0 4-2.6 6.5-7 6.5z"/><path d="M7 21h10"/><path d="M18.5 2.5c.8 1.2 1.3 2 1.3 2.7a1.3 1.3 0 0 1-2.6 0c0-.7.5-1.5 1.3-2.7z"/>'
   };
   const TINTS = {
     "Renewable Energy":["#DDF2E9","#13865F"], "IoT & Embedded":["#FCE6DE","#C5502F"],
@@ -1008,13 +1168,13 @@ footer a:hover{color:var(--ink)}
   const tint = c => TINTS[c] || extra[[...String(c)].reduce((a, ch) => a + ch.charCodeAt(0), 0) % extra.length];
   const grid = $("grid");
   grid.innerHTML = list(SITE.projects).map((p, pi) => {
-    const [bg, fg] = tint(p.category);
+    const [bg, fg] = ({sprout:["#E4F3DC","#3E7D1E"]})[p.icon] || tint(p.category);
     const cover = p.image
       ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">`
       : `<div class="gen" style="--bg:${bg};--fg:${fg}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${PI[p.icon] || PI.chip}</svg></div>`;
     const links = list(p.links).filter(l => l && l.url).map(l =>
       `<a href="${esc(l.url)}"${ext(l.url)}>${esc(l.label || "Open")} <span aria-hidden="true">↗</span></a>`).join("");
-    return `<article class="project card lift" data-cat="${esc(p.category)}">
+    return `<article class="project card lift" data-cat="${esc(p.category)}" data-i="${pi}">
       <div class="cover">${cover}${p.category ? `<span class="cat">${esc(p.category)}</span>` : ""}</div>
       <h3>${esc(p.title)}</h3><p>${esc(p.description)}</p>
       <div class="tags">${list(p.tags).map(t=>`<span>${esc(t)}</span>`).join("")}</div>
@@ -1047,54 +1207,149 @@ footer a:hover{color:var(--ink)}
         {duration:600, delay:k*90, easing:"cubic-bezier(.2,.8,.2,1)", fill:"backwards"});
     });
   }
+  /* "All" shows only the top projects; "See more" reveals the rest */
+  const PR = list(SITE.projects);
+  const hasTop = PR.some(p => p.top);
+  const isTop = i => hasTop ? !!PR[i].top : i < 3;
+  let cat = "All", expanded = false;
+  const moreBtn = $("more-btn"), moreWrap = $("more-wrap");
+  function applyProjects(animateNew){
+    const before = new Set(cards.filter(c => !c.hidden));
+    cards.forEach((el, i) => {
+      const inCat = cat === "All" || el.dataset.cat === cat;
+      el.hidden = !(inCat && (cat !== "All" || expanded || isTop(i)));
+    });
+    const extra = cards.filter((el, i) => !isTop(i)).length;
+    moreWrap.hidden = cat !== "All" || extra === 0;
+    moreBtn.setAttribute("aria-expanded", expanded);
+    moreBtn.querySelector(".txt").textContent = expanded ? "Show fewer projects" : `See more projects (${extra})`;
+    moreBtn.classList.toggle("open", expanded);
+    if (animateNew === null) return;
+    const vis = cards.filter(c => !c.hidden);
+    showCards(animateNew ? vis.filter(c => !before.has(c)) : vis);
+  }
+  applyProjects(null);
   filters.addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
     filters.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    const c = b.dataset.cat, visible = [];
-    cards.forEach(el => { const on = c === "All" || el.dataset.cat === c; el.hidden = !on; if (on) visible.push(el); });
-    showCards(visible);
+    cat = b.dataset.cat; expanded = false;
+    applyProjects(false);
+  });
+  moreBtn.addEventListener("click", () => {
+    expanded = !expanded;
+    applyProjects(true);
+    if (!expanded) $("projects").scrollIntoView({behavior: reduce ? "auto" : "smooth"});
   });
 
   /* ---------- activities ---------- */
   const AI = {
     trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',
+    poster:'<rect x="4" y="3" width="16" height="13" rx="1.5"/><path d="M8 8h8M8 11h5M12 16v5M8 21h8"/>',
+    mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/>',
+    hand:'<path d="M18 11V6a2 2 0 0 0-4 0M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>',
+    pen:'<path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/><path d="M14 20h6"/>',
     people:'<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/>'
   };
+  const ACAT = {
+    "Competitions":             {icon:"trophy", cls:"comp"},
+    "Research & Presentations": {icon:"poster", cls:"research"},
+    "Speaker & Trainer":        {icon:"mic",    cls:"speaker"},
+    "Volunteer & Service":      {icon:"hand",   cls:"service"}
+  };
+  const camIco = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+  const certIco = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13.2 7.5 21l4.5-2.5 4.5 2.5-1.5-7.8"/></svg>';
+  const bookIco = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7"/></svg>';
   const acts = list(SITE.activities);
   const actList = $("act-list");
-  actList.innerHTML = acts.map(a => {
-    const comp = /compet/i.test(a.type || "");
-    const first = /^1st/i.test(a.result || "");
-    const cover = a.image
-      ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" loading="lazy">`
-      : `<div class="act-gen ${comp ? (first ? "gold" : "comp") : "people"}" aria-hidden="true">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${comp ? AI.trophy : AI.people}</svg>
-           ${a.result ? `<span class="rank">${esc(a.result.replace(/\s*place$/i, ""))}</span>` : ""}
-         </div>`;
-    const meta = [a.event, a.place].filter(Boolean).map(esc).join(" · ");
-    return `<article class="act card lift" data-type="${comp ? "Competitions" : "Activities"}">
-      <div class="act-cover">${cover}<span class="cat">${esc(a.type || "Activity")}</span></div>
+  actList.innerHTML = acts.map((a, ai) => {
+    const meta = ACAT[a.category] || {icon:"people", cls:"other"};
+    const gold = /^1st/i.test(a.highlight || "");
+    const photos = list(a.photos);
+    const cover = `<div class="act-gen ${gold ? "gold" : meta.cls}" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${AI[a.icon] || AI[meta.icon]}</svg>
+        ${a.highlight ? `<span class="rank">${esc(a.highlight)}</span>` : ""}</div>`;
+    const btns = list(a.links).filter(l => l && l.url).map(l => {
+      const ico = /certif/i.test(l.label) ? certIco : /book|read/i.test(l.label) ? bookIco : "";
+      return `<a class="act-btn" href="${esc(l.url)}"${ext(l.url)}>${ico}${esc(l.label)} <span aria-hidden="true">↗</span></a>`;
+    });
+    if (photos.length) btns.unshift(`<button type="button" class="act-btn photo" data-gallery="${ai}">${camIco}View photo${photos.length > 1 ? "s" : ""} (${photos.length})</button>`);
+    const sub = [a.event, a.place].filter(Boolean).map(esc).join(" · ");
+    return `<article class="act card lift" data-type="${esc(a.category || "Other")}" data-i="${ai}">
+      <div class="act-cover">${cover}<span class="cat">${esc(a.category || "Activity")}</span>${photos.length ? `<span class="pcount">${camIco}${photos.length}</span>` : ""}</div>
       <div class="act-body">
-        <div class="act-top">${a.result && a.image ? `<span class="result">${esc(a.result)}</span>` : ""}${a.date ? `<span class="label">${esc(a.date)}</span>` : ""}</div>
+        ${a.date ? `<span class="label act-date">${esc(a.date)}</span>` : ""}
         <h3>${esc(a.title)}</h3>
-        ${meta ? `<p class="act-meta">${meta}</p>` : ""}
+        ${sub ? `<p class="act-meta">${sub}</p>` : ""}
         ${a.text ? `<p>${esc(a.text)}</p>` : ""}
-        ${a.link ? `<div class="links" style="margin-left:0"><a href="${esc(a.link)}"${ext(a.link)}>View more <span aria-hidden="true">↗</span></a></div>` : ""}
+        ${btns.length ? `<div class="act-btns">${btns.join("")}</div>` : ""}
       </div></article>`;
   }).join("");
   const actCards = [...actList.children];
-  const types = [...new Set(actCards.map(c => c.dataset.type))];
-  const actF = $("act-filters");
-  if (types.length > 1) {
-    actF.innerHTML = ["All", ...types].map(t => `<button type="button" aria-pressed="${t==="All"}" data-t="${t}">${t}</button>`).join("");
-    actF.addEventListener("click", e => {
-      const b = e.target.closest("button"); if (!b) return;
-      actF.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-      const vis = [];
-      actCards.forEach(c => { const on = b.dataset.t === "All" || c.dataset.type === b.dataset.t; c.hidden = !on; if (on) vis.push(c); });
-      showCards(vis);
+  const actHasTop = acts.some(a => a.top);
+  const actIsTop = i => actHasTop ? !!acts[i].top : i < 3;
+  let actCat = "All", actOpen = false;
+  const actF = $("act-filters"), actMore = $("act-more"), actMoreWrap = $("act-more-wrap");
+  const groups = [...new Set(acts.map(a => a.category || "Other"))];
+  if (groups.length > 1) actF.innerHTML = ["All", ...groups].map(t => `<button type="button" aria-pressed="${t==="All"}" data-t="${esc(t)}">${esc(t)}</button>`).join("");
+  else actF.hidden = true;
+  function applyActs(anim){
+    const before = new Set(actCards.filter(c => !c.hidden));
+    actCards.forEach((el, i) => {
+      const inCat = actCat === "All" || el.dataset.type === actCat;
+      el.hidden = !(inCat && (actCat !== "All" || actOpen || actIsTop(i)));
     });
-  } else actF.hidden = true;
+    const extra = actCards.filter((el, i) => !actIsTop(i)).length;
+    actMoreWrap.hidden = actCat !== "All" || extra === 0;
+    actMore.setAttribute("aria-expanded", actOpen);
+    actMore.querySelector(".txt").textContent = actOpen ? "Show fewer activities" : `See more activities (${extra})`;
+    actMore.classList.toggle("open", actOpen);
+    if (anim === null) return;
+    const vis = actCards.filter(c => !c.hidden);
+    showCards(anim ? vis.filter(c => !before.has(c)) : vis);
+  }
+  applyActs(null);
+  actF.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    actF.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    actCat = b.dataset.t; actOpen = false; applyActs(false);
+  });
+  actMore.addEventListener("click", () => {
+    actOpen = !actOpen; applyActs(true);
+    if (!actOpen) $("activities").scrollIntoView({behavior: reduce ? "auto" : "smooth"});
+  });
+
+  /* photo lightbox */
+  const lb = $("lightbox"), lbImg = $("lb-img");
+  let lbList = [], lbI = 0, lbTitle = "";
+  function lbShow(){
+    lbImg.classList.remove("in");
+    lbImg.src = lbList[lbI];
+    lbImg.alt = `${lbTitle}, photo ${lbI + 1} of ${lbList.length}`;
+    $("lb-title").textContent = lbTitle;
+    $("lb-count").textContent = lbList.length > 1 ? `${lbI + 1} / ${lbList.length}` : "";
+    $("lb-prev").hidden = $("lb-next").hidden = lbList.length < 2;
+    requestAnimationFrame(() => lbImg.classList.add("in"));
+    lbList.forEach(src => { const im = new Image(); im.src = src; });
+  }
+  const lbGo = d => { if (lbList.length < 2) return; lbI = (lbI + d + lbList.length) % lbList.length; lbShow(); };
+  actList.addEventListener("click", e => {
+    const b = e.target.closest("[data-gallery]"); if (!b) return;
+    const a = acts[+b.dataset.gallery];
+    lbList = list(a.photos); lbI = 0; lbTitle = a.title;
+    lbShow();
+    if (lb.showModal) lb.showModal(); else lb.setAttribute("open", "");
+    document.body.classList.add("locked");
+  });
+  const lbClose = () => { lb.close ? lb.close() : lb.removeAttribute("open"); };
+  lb.addEventListener("close", () => document.body.classList.remove("locked"));
+  $("lb-close").addEventListener("click", lbClose);
+  $("lb-prev").addEventListener("click", () => lbGo(-1));
+  $("lb-next").addEventListener("click", () => lbGo(1));
+  lb.addEventListener("click", e => { if (e.target === lb) lbClose(); });
+  lb.addEventListener("keydown", e => { if (e.key === "ArrowRight") lbGo(1); if (e.key === "ArrowLeft") lbGo(-1); });
+  let tx = null;
+  lb.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, {passive:true});
+  lb.addEventListener("touchend", e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) lbGo(dx < 0 ? 1 : -1); tx = null; });
 
   /* ---------- skills ---------- */
   const SK = {
@@ -1122,7 +1377,7 @@ footer a:hover{color:var(--ink)}
     const toast = $("toast"); toast.textContent = "Email copied ✓"; toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 1800);
   });
-  if (SITE.cv) { const cv = $("cv"); cv.href = SITE.cv; cv.hidden = false; cv.innerHTML = dl + "Download CV"; }
+  if (SITE.cv) { const cv = $("cv"); cv.href = SITE.cv; cv.hidden = false; cv.textContent = cvText; }
   const info = [];
   if (SITE.phone) info.push(`<div><span class="label">Phone</span><a href="tel:${esc(SITE.phone.replace(/\s/g,""))}">${esc(SITE.phone)}</a></div>`);
   if (SITE.location) info.push(`<div><span class="label">Location</span><strong>${esc(SITE.location)}</strong></div>`);
