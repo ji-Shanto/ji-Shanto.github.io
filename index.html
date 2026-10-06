@@ -65,15 +65,23 @@ const SITE = {
       level: "Undergraduate",
       title: "B.Sc. in Electrical & Electronic Engineering",
       place: "Jashore University of Science & Technology, Jashore-7408, Bangladesh",
-      result: "CGPA: 3.69 / 4.0",
+      result: "CGPA: 3.69 / 4.00 (till 6th semester)",
       note: "Expected graduation: 2027"
     },
     {
-      period: "2018 – 2021",
+      period: "2018 – 2019",
       level: "Higher Secondary",
-      title: "Higher Secondary Certificate (Science)",
+      title: "Higher Secondary Certificate (HSC) in Science",
       place: "Shachindra College, Baniachong, Habiganj, Bangladesh",
-      result: "GPA: 4.75 / 5.0",
+      result: "GPA: 4.75 / 5.00",
+      note: ""
+    },
+    {
+      period: "2016 – 2017",
+      level: "Secondary",
+      title: "Secondary School Certificate (SSC) in Science",
+      place: "Habiganj High School & College, Habiganj Sadar, Habiganj - 3300, Bangladesh",
+      result: "GPA: 4.50 / 5.00",
       note: ""
     }
   ],
@@ -522,6 +530,23 @@ h3{font-family:var(--head);font-weight:700;font-size:1.15rem;line-height:1.35;le
 .dl-btn .go{transition:transform .3s}
 .dl-btn:hover .go{transform:translate(3px,-3px)}
 .btn svg{width:18px;height:18px}
+.edu-box{padding:clamp(26px,4vw,40px) clamp(22px,4vw,44px)}
+.edu-box > .label{display:block;margin-bottom:22px}
+.edu-tl{list-style:none;padding:0 0 0 34px;margin:0;position:relative}
+.edu-tl::before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:2px;border-radius:2px;background:linear-gradient(var(--accent),rgba(31,181,138,.15));transform-origin:top;transform:scaleY(0);transition:transform 1.4s cubic-bezier(.2,.8,.2,1) .2s}
+.edu-box.in .edu-tl::before{transform:scaleY(1)}
+.edu-tl > li{position:relative;padding-bottom:clamp(26px,3.5vw,36px);opacity:0;transform:translateX(-12px);transition:opacity .7s ease var(--d),transform .7s cubic-bezier(.2,.8,.2,1) var(--d)}
+.edu-tl > li:last-child{padding-bottom:0}
+.edu-box.in .edu-tl > li{opacity:1;transform:none}
+.edu-tl .dot{position:absolute;left:-34px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px rgba(31,181,138,.16);transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1) calc(var(--d) + .25s)}
+.edu-box.in .edu-tl .dot{transform:scale(1)}
+.edu-tl > li:first-child .dot::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--accent);animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.6);opacity:0}}
+.edu-tl h3{font-size:clamp(1.15rem,2.2vw,1.45rem);letter-spacing:-.015em}
+.edu-tl .place{color:var(--text);margin-top:6px}
+.edu-tl .meta{color:var(--muted);margin-top:8px}
+.edu-tl .sep{color:var(--line);margin:0 6px}
+.edu-tl .note{color:var(--muted);font-size:.92rem;margin-top:2px}
 .edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(16px,2.5vw,24px)}
 .edu{padding:26px 30px 28px}
 .edu-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
@@ -823,7 +848,10 @@ footer a:hover{color:var(--ink)}
       <div class="sec-head reveal"><div><span class="label" data-num></span><h2>Biography</h2></div></div>
       <div class="bio-text reveal" id="bio-text"></div>
       <div class="cv-bar reveal" id="cv-bar"></div>
-      <div class="edu-grid reveal" id="edu-list"></div>
+      <div class="edu-box card reveal" id="edu-box">
+        <span class="label">Education</span>
+        <ol class="edu-tl" id="edu-list"></ol>
+      </div>
       <div class="bio-grid two reveal">
         <div class="tl-card card" id="exp-card"><span class="label">Leadership</span><ol class="timeline" id="exp-list"></ol></div>
         <div class="tl-card card" id="train-card"><span class="label">Training</span><ol class="timeline" id="train-list"></ol></div>
@@ -1029,14 +1057,14 @@ footer a:hover{color:var(--ink)}
     }).join("");
     if (!list(items).length) $(cardId).hidden = true;
   };
-  $("edu-list").innerHTML = list(SITE.education).map(e => `<article class="edu card lift">
-      <div class="edu-top"><span class="chip">${esc(e.period)}</span>${e.level ? `<span class="label">${esc(e.level)}</span>` : ""}</div>
+  $("edu-list").innerHTML = list(SITE.education).map((e, n) => `<li style="--d:${n * .18}s">
+      <span class="dot" aria-hidden="true"></span>
       <h3>${esc(e.title)}</h3>
       ${e.place ? `<p class="place">${esc(e.place)}</p>` : ""}
-      ${e.result ? `<p class="muted">${esc(e.result)}</p>` : ""}
-      ${e.note ? `<p class="muted">${esc(e.note)}</p>` : ""}
-    </article>`).join("");
-  if (!list(SITE.education).length) $("edu-list").hidden = true;
+      <p class="meta">${[e.period, e.result].filter(Boolean).map(esc).join(' <span class="sep">|</span> ')}</p>
+      ${e.note ? `<p class="note">${esc(e.note)}</p>` : ""}
+    </li>`).join("");
+  if (!list(SITE.education).length) $("edu-box").hidden = true;
 
   const dl = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-5-5m5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const cvBtns = [];
